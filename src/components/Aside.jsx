@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { MusicPlayerContext } from '../context/MusicPlayerProvider';
-import { IoMusicalNotes, IoPlaySkipForward, IoPlaySkipBack, IoPlay, IoPause, IoRepeat, IoShuffleOutline } from 'react-icons/io5';
+import { IoMusicalNotes, IoPlaySkipForward, IoPlaySkipBack, IoPlay, IoPause, IoRepeat, IoShuffleOutline, IoTrash } from 'react-icons/io5';
 import ReactPlayer from 'react-player';
 
 const Aside = () => {
@@ -20,7 +20,8 @@ const Aside = () => {
         isShuffling,
         toggleRepeat,
         isRepeating,
-        handleTrackEnd
+        handleTrackEnd,
+        removeTrack
     } = useContext(MusicPlayerContext);
 
     const currentTrackRef = useRef(null);
@@ -144,11 +145,13 @@ const Aside = () => {
                         <li
                             key={index}
                             ref={index === currentTrackIndex ? currentTrackRef : null}
-                            onClick={() => playTrack(index)}
                             className={index === currentTrackIndex ? 'current-track' : ''}
                         >
                             <span className="img" style={{ backgroundImage: `url(${track.imageURL})` }}></span>
-                            <span className="title">{track.title}</span>
+                            <span className="title" onClick={() => playTrack(index)}>{track.title}</span>
+                            <span className="remove" onClick={() => removeTrack(index)}>
+                                <IoTrash />
+                            </span>
                         </li>
                     ))}
                 </ul>

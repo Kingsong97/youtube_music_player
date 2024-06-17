@@ -84,6 +84,16 @@ const MusicPlayerProvider = ({ children }) => {
         setMusicData((prevMusicData) => [...prevMusicData, track]);
     };
 
+    // 재생 목록에서 트랙을 제거하는 함수
+    const removeTrack = (index) => {
+        setMusicData((prevMusicData) => prevMusicData.filter((_, i) => i !== index));
+        if (index === currentTrackIndex) {
+            playTrack(0); // 현재 트랙이 제거된 경우 첫 번째 트랙을 재생
+        } else if (index < currentTrackIndex) {
+            setCurrentTrackIndex((prevIndex) => prevIndex - 1); // 현재 트랙 이전의 트랙이 제거된 경우 인덱스 조정
+        }
+    };
+
     return (
         <MusicPlayerContext.Provider
             value={{
@@ -105,7 +115,8 @@ const MusicPlayerProvider = ({ children }) => {
                 toggleRepeat,
                 handleTrackEnd,
                 addTrackToList,
-                addTrackToEnd
+                addTrackToEnd,
+                removeTrack,
             }}>
             {children}
         </MusicPlayerContext.Provider>
