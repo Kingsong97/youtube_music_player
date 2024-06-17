@@ -1,8 +1,8 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react';
 
 export const MusicPlayerContext = createContext();
 
-const MusicPlayerProvider = ({children}) => {
+const MusicPlayerProvider = ({ children }) => {
     const [musicData, setMusicData] = useState([]);
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -86,31 +86,32 @@ const MusicPlayerProvider = ({children}) => {
         setMusicData((prevMusicData) => [...prevMusicData, track]);
     };
 
-  return (
-    <MusicPlayerContext.Provider
-     value={{
-        musicData,
-        currentTrackIndex,
-        isPlaying,
-        played,
-        duration,
-        playTrack,
-        pauseTrack,
-        nextTrack,
-        prevTrack,
-        updatePlayed,
-        updateDuration,
-        isShuffling,
-        isRepeating,
-        toggleShuffle,
-        toggleRepeat,
-        handleTrackEnd,
-        addTrackToList,
-        addTrackToEnd
-        }}>
-        {children}
-    </MusicPlayerContext.Provider>
-  )
-}
+    return (
+        <MusicPlayerContext.Provider
+            value={{
+                musicData,
+                currentTrackIndex,
+                isPlaying,
+                played,
+                duration,
+                playTrack,
+                pauseTrack,
+                nextTrack,
+                prevTrack,
+                updatePlayed,
+                updateDuration,
+                isShuffling,
+                isRepeating,
+                toggleShuffle,
+                toggleRepeat,
+                handleTrackEnd,
+                addTrackToList,
+                addTrackToEnd,
+            }}
+        >
+            {children}
+        </MusicPlayerContext.Provider>
+    );
+};
 
-export default MusicPlayerProvider
+export default MusicPlayerProvider;
