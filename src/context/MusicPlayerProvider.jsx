@@ -76,12 +76,10 @@ const MusicPlayerProvider = ({ children }) => {
         }
     };
 
-    // 재생 목록에 트랙을 추가하는 함수
     const addTrackToList = (track) => {
         setMusicData((prevMusicData) => [track, ...prevMusicData]);
     };
 
-    // 재생 목록의 끝에 트랙을 추가하는 함수
     const addTrackToEnd = (track) => {
         setMusicData((prevMusicData) => [...prevMusicData, track]);
     };
@@ -90,6 +88,7 @@ const MusicPlayerProvider = ({ children }) => {
         <MusicPlayerContext.Provider
             value={{
                 musicData,
+                setMusicData,  // Ensure setMusicData is included
                 currentTrackIndex,
                 isPlaying,
                 played,
@@ -106,12 +105,11 @@ const MusicPlayerProvider = ({ children }) => {
                 toggleRepeat,
                 handleTrackEnd,
                 addTrackToList,
-                addTrackToEnd,
-            }}
-        >
+                addTrackToEnd
+            }}>
             {children}
         </MusicPlayerContext.Provider>
     );
-};
+}
 
 export default MusicPlayerProvider;

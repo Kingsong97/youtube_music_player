@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { MusicPlayerContext } from '../context/MusicPlayerProvider';
 import { IoShuffleOutline } from 'react-icons/io5';
 
-
 const Home = () => {
     const { playTrack, setMusicData } = useContext(MusicPlayerContext);
 
