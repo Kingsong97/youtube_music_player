@@ -116,7 +116,7 @@ const MusicPlayerProvider = ({ children }) => {
                 handleTrackEnd,
                 addTrackToList,
                 addTrackToEnd,
-                removeTrack,
+                removeTrack
             }}>
             {children}
         </MusicPlayerContext.Provider>

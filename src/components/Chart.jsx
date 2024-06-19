@@ -14,6 +14,7 @@ const CustomInput = forwardRef(({ value, onClick }, ref) => (
         <span>{value}</span>
     </button>
 ));
+
 const Chart = ({ title, showCalendar, selectedDate, onDateChange, minDate, maxDate, data }) => {
     const { addTrackToList,
         addTrackToEnd, playTrack } = useContext(MusicPlayerContext);
@@ -29,7 +30,7 @@ const Chart = ({ title, showCalendar, selectedDate, onDateChange, minDate, maxDa
                     q: query,
                     type: 'video',
                     maxResults: 5,
-                    key: '',
+                    key: "AIzaSyC_9paGhSpgsO2dkNhB5uzHpRhGoXiINr4",
                 },
             });
             setYoutubeResults(response.data.items);
@@ -140,7 +141,7 @@ const Chart = ({ title, showCalendar, selectedDate, onDateChange, minDate, maxDa
                 onAddToPlaylist={handleAddToPlaylist}
             />
         </>
-        
+
     )
 }
 export default Chart

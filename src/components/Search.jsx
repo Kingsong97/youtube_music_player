@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { LuSearch } from "react-icons/lu";
+import { MdOutlinePlayCircleFilled, MdFormatListBulletedAdd, MdClose, MdHive } from 'react-icons/md';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Modal from "./Modal";
+import { MusicPlayerContext } from '../context/MusicPlayerProvider';
 
 const Search = () => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { addTrackToList, addTrackToEnd, playTrack, setMusicData } = useContext(MusicPlayerContext);
 
     const handleSearch = async () => {
         if (!query) return;
 
-        const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
+        const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY2;
         const response = await axios.get("https://www.googleapis.com/youtube/v3/search", {
             params: {
                 part: "snippet",
@@ -30,19 +35,44 @@ const Search = () => {
         setQuery(e.target.value);
     };
 
-    const handleVideoSelect = (video) => {
-        setSelectedVideo(video);
+    const handlePlayNow = (result) => {
+        const newTrack = {
+            title: result.snippet.title,
+            videoID: result.id.videoId,
+            imageURL: result.snippet.thumbnails.default.url,
+            artist: result.snippet.channelTitle,
+        };
+        setMusicData([newTrack]); // 음악 데이터 업데이트
+        playTrack(0); // 첫 번째 트랙 재생
+    };
+
+    const handleAddToList = (result) => {
+        const newTrack = {
+            title: result.snippet.title,
+            videoID: result.id.videoId,
+            imageURL: result.snippet.thumbnails.default.url,
+            artist: result.snippet.channelTitle,
+        };
+        addTrackToEnd(newTrack);
+        toast.success('리스트에 추가했습니다.');
+    };
+
+    const handleAddToPlaylistClick = (result) => {
+        setSelectedVideo({
+            title: result.snippet.title,
+            videoID: result.id.videoId,
+            imageURL: result.snippet.thumbnails.default.url,
+            artist: result.snippet.channelTitle,
+        });
         setIsModalOpen(true);
     };
 
     const handleAddToPlaylist = (playlistId) => {
-        const newTrack = {
-            title: selectedVideo.snippet.title,
-            videoID: selectedVideo.id.videoId,
-            imageURL: selectedVideo.snippet.thumbnails.default.url,
-            artist: selectedVideo.snippet.channelTitle,
-        };
-        // 플레이리스트에 추가하는 로직을 여기에 추가합니다.
+        const playlist = JSON.parse(localStorage.getItem(playlistId));
+        if (playlist && selectedVideo) {
+            playlist.items.push(selectedVideo);
+            localStorage.setItem(playlistId, JSON.stringify(playlist));
+        }
     };
 
     return (
@@ -58,19 +88,35 @@ const Search = () => {
                 onChange={handleInputChange}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
             />
-            <ul className="search-results">
-                {results.map((result) => (
-                    <li key={result.id.videoId} onClick={() => handleVideoSelect(result)}>
-                        <img src={result.snippet.thumbnails.default.url} alt={result.snippet.title} />
-                        <div>
-                            <h3>{result.snippet.title}</h3>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-            {isModalOpen && (
-                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onAddToPlaylist={handleAddToPlaylist} />
+            {results.length > 0 && (
+                <section className='youtube-result'>
+                    <h3>👉 "{query}"에 대한 유튜브 검색 결과입니다.</h3>
+                    <ul>
+                        {results.map((result, index) => (
+                            <li key={index}>
+                                <span className='img' style={{ backgroundImage: `url(${result.snippet.thumbnails.default.url})` }}></span>
+                                <span className='title'>{result.snippet.title}</span>
+                                <span className='playNow' onClick={() => handlePlayNow(result)}>
+                                    <MdOutlinePlayCircleFilled /><span className='ir'>노래듣기</span>
+                                </span>
+                                <span className='listAdd' onClick={() => handleAddToList(result)}>
+                                    <MdFormatListBulletedAdd /><span className='ir'>리스트 추가하기</span>
+                                </span>
+                                <span className='chartAdd' onClick={() => handleAddToPlaylistClick(result)}>
+                                    <MdHive /><span className='ir'>나의 리스트에 추가하기</span>
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                    <span className='close' onClick={() => setResults([])}><MdClose /></span>
+                </section>
             )}
+            <ToastContainer />
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onAddToPlaylist={handleAddToPlaylist}
+            />
         </article>
     );
 };

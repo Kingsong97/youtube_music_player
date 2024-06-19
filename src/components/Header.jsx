@@ -123,14 +123,16 @@ const Header = () => {
                 {playlistLinks}
                 <li>
                     {showInput ? (
-                        <div>
+                        <div className='input-container'>
                             <input
                                 type='text'
                                 value={newItem}
                                 onChange={handleInputChange}
                             />
-                            <button onClick={handleAddItem}>Add</button>
-                            <button onClick={handleCancel}>Cancel</button>
+                            <div className='button-group'>
+                                <button onClick={handleAddItem}>Add</button>
+                                <button onClick={handleCancel}>Cancel</button>
+                            </div>
                         </div>
                     ) : (
                         <Link to='#' onClick={handleAddClick}><span className='icon2'><FcPlus /></span>Create</Link>
