@@ -7,6 +7,7 @@
     background-color: var(--mainBg);
     border-right: 1px dotted var(--black300);
     box-shadow: 0 0 10px var(--black300);
+    overflow-y: auto;
 
     h1 {
         padding: 2rem 2rem 1rem 2rem;
@@ -30,7 +31,7 @@
         padding: 2rem 2rem 1rem 2rem;
     }
 
-    ul {
+    ul {   
         li {
             color: var(--black500);
             font-weight: 400;
