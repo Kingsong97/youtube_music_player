@@ -17,7 +17,7 @@ const Search = () => {
     const handleSearch = async () => {
         if (!query) return;
 
-        const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY2;
+        const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
         const response = await axios.get("https://www.googleapis.com/youtube/v3/search", {
             params: {
                 part: "snippet",

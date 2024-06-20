@@ -189,17 +189,38 @@
                     background-color: var(--black300);
                 }
 
-                .title {
-                    width: calc(100% - 80px);
-                    max-height: 45px;
-                    font-family: var(--fontJ);
-                    font-weight: 300;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
+                .track-info {
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    margin-left: 10px;
+        
+                    .title {
+                        font-family: var(--fontJ);
+                        font-weight: 300;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        margin-bottom: 5px;
+                    }
+        
+                    .artist {
+                        font-family: var(--fontJ);
+                        font-weight: 300;
+                        color: var(--black700);
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
                 }
+        
+                .remove {
+                    cursor: pointer;
+                    font-size: 20px;
+                    color: var(--black500);
+                    margin-left: 10px;
+                }
+                
 
                 &:hover {
                     background-color: var(--pointBg);

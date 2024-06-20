@@ -143,16 +143,19 @@ const Aside = () => {
                 <ul>
                     {musicData.map((track, index) => (
                         <li
-                            key={index}
-                            ref={index === currentTrackIndex ? currentTrackRef : null}
-                            className={index === currentTrackIndex ? 'current-track' : ''}
-                        >
-                            <span className="img" style={{ backgroundImage: `url(${track.imageURL})` }}></span>
-                            <span className="title" onClick={() => playTrack(index)}>{track.title}</span>
-                            <span className="remove" onClick={() => removeTrack(index)}>
-                                <IoTrash />
-                            </span>
-                        </li>
+                        key={index}
+                        ref={index === currentTrackIndex ? currentTrackRef : null}
+                        className={index === currentTrackIndex ? 'current-track' : ''}
+                    >
+                        <span className="img" style={{ backgroundImage: `url(${track.imageURL})` }}></span>
+                        <div className="track-info" onClick={() => playTrack(index)}>
+                            <span className="title">{track.title}</span>
+                            <span className="artist">{track.artist}</span>
+                        </div>
+                        <span className="remove" onClick={() => removeTrack(index)}>
+                            <IoTrash />
+                        </span>
+                    </li>
                     ))}
                 </ul>
             </div>
