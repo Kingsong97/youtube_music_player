@@ -11,19 +11,21 @@ const Modal = ({ isOpen, onClose, onAddToPlaylist }) => {
                 const playlistKey = `playlist${i}`;
                 const playlist = JSON.parse(localStorage.getItem(playlistKey));
                 if (playlist) {
-                    loadedPlaylists.push(playlist);
+                    loadedPlaylists.push({ key: playlistKey, name: playlist.name });
                 }
             }
             setPlaylists(loadedPlaylists);
+            console.log('Loaded playlists:', loadedPlaylists); // 변경 사항
         }
     }, [isOpen]);
 
-    const handleAddClick = (playlistId) => {
-        onAddToPlaylist(playlistId);
+    const handleAddClick = (playlistKey) => {
+        onAddToPlaylist(playlistKey);
         onClose();
+        console.log('Playlist added to:', playlistKey); // 변경 사항
     };
 
-    if (!isOpen) return null;
+    if (!isOpen) return null; // 이 부분을 확인하기 위해 로그 추가
 
     return (
         <div className="modal">
@@ -32,9 +34,9 @@ const Modal = ({ isOpen, onClose, onAddToPlaylist }) => {
                 <h2>플레이리스트 선택</h2>
                 <ul>
                     {playlists.map((playlist) => (
-                        <li key={playlist.id}>
+                        <li key={playlist.key}>
                             {playlist.name}
-                            <button onClick={() => handleAddClick(playlist.id)}>추가</button>
+                            <button onClick={() => handleAddClick(playlist.key)}>추가</button>
                         </li>
                     ))}
                 </ul>

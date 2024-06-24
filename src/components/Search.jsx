@@ -67,11 +67,12 @@ const Search = () => {
         setIsModalOpen(true);
     };
 
-    const handleAddToPlaylist = (playlistId) => {
-        const playlist = JSON.parse(localStorage.getItem(playlistId));
+    const handleAddToPlaylist = (playlistKey) => {
+        console.log('Adding to playlist:', playlistKey);
+        const playlist = JSON.parse(localStorage.getItem(playlistKey));
         if (playlist && selectedVideo) {
             playlist.items.push(selectedVideo);
-            localStorage.setItem(playlistId, JSON.stringify(playlist));
+            localStorage.setItem(playlistKey, JSON.stringify(playlist));
         }
     };
 
