@@ -20,11 +20,6 @@ Musicflix는 사용자가 음악을 탐색하고 즐길 수 있도록 설계된 
 뮤직 비디오: 좋아하는 아티스트의 뮤직 비디오를 직접 시청할 수 있습니다.
 사용자 친화적인 인터페이스: 간단하고 직관적인 디자인으로 매끄러운 사용자 경험을 제공합니다.
 
-## 사이트 프리뷰
-![image](https://github.com/spearboy/yt_music/assets/95023009/83b5423f-73ed-4b68-96ac-b2d68e630f9b)
-![image](https://github.com/spearboy/yt_music/assets/95023009/3ed1f6da-6297-4329-ba88-eba0f121398e)
-![image](https://github.com/spearboy/yt_music/assets/95023009/54cd6f8d-9a61-49a9-891d-795a2543a215)
-![image](https://github.com/spearboy/yt_music/assets/95023009/b943dcc9-bb3d-4b22-9242-8c32bb1f8302)
 
 ## 기술 스택
 1. 프론트엔드: Vue.js, Swiper
